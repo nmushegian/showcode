@@ -7,9 +7,43 @@ onload =()=>{
 
 _ = {}
 
-glif =g=> {
+
+    anim = {
+    }
+
+glif =(l,r,d)=> {
+    if (l == 'snake') {
+        l = 5407
+        r = 5
+    } else if (l == 'star') {
+        l = 10030
+        r = 6
+    }else if (l == 'china') {
+        l = 15000
+        r = 100
+    } else if (l == 'rune') {
+        l = 5808
+        r = 15
+    } else if (l == 'braille') {
+        l = 10240
+        r = 100
+    } else if (l == 'shatter') {
+        l = 63696
+        r = 16
+    } else if (l == 'flower') {
+        l = 1421
+        r = 2
+    } else {
+        if (l == undefined) {
+            l = random(16000)
+            r = 10
+        }
+    }
     let e = form({
-        g: O(g),
+        l: O(l),
+        r: O(r),
+        g: O(l),
+        d: O( d ? d : 3),
         x: O(mx()),
         y: O(my()),
         dx: O(0),
@@ -20,34 +54,54 @@ glif =g=> {
         e.y( e.y() + e.dy() )
         e.dy( e.dy() + (random() - 1/2)/20)
         e.dx( e.dx() + (random() - 1/2)/20)
+        let ff = floor(frame()/e.d())
+        let av = e.l() + (ff % e.r())
+        let s = String.fromCharCode(av)
+        e.g(s)
     }).draw(()=>{
         push()
         textSize(36)
         fill(e.hue())
         text(e.g(), e.x(), e.y())
         textSize(8)
-        text(view(e), e.x(), e.y() + 24)
         pop()
     })
     return e
 }
 
+    glowbox =(x,y,t)=> form({
+        t,
+        x,
+        y,
+        age: O(0)
+    }).tick(()=>{
+        age(age()+1)
+    }).draw(()=>{
+        push()
+          grey = 255/age
+          stroke(grey,grey,grey)
+          stroke(grey,grey,grey)
+          text(t, x, y)
+        pop()
+    })
 
 const c = form({
     x: O(mouseX),
     y: O(mouseY),
-    buff: O(()=>sh())
+    buff: O(()=>sh()),
+    hue: O('white')
 }).tick(() => {
     c.x( mouseX )
     c.y( mouseY )
 }).draw(() => {
     push()
+    fill(c.hue())
+    stroke(c.hue())
     text("\u2609 ", c.x()+32, c.y())
     text(c.buff(), c.x()+64, c.y())
     pop()
 })
-
-
+self = c
 
 wisp =args=> {
     let w = form({
@@ -92,5 +146,16 @@ link =(a,b)=> {
     return l
 }
 
+let interval
+stream =f=> {
+    interval = setInterval(f, 300)
+}
+    stop =()=> { clearInterval(interval) }
+
+    trix =(l,r,d)=>{
+        let t = form({
+            row: O(() => [])
+        })
+    }
 
 }
