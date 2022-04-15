@@ -47,7 +47,7 @@ const c = form({
     pop()
 })
 
-glif("A")
+
 
 wisp =args=> {
     let w = form({
