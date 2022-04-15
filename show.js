@@ -26,6 +26,7 @@ keyPressed =(k)=> {
     if (k.key == "Enter") {
         let c = sh()
         sh("")
+        glowbox(mouseX+64,mouseY,c)
         cmd(c)
     } else if (k.key == "Backspace") {
         let s = sh()

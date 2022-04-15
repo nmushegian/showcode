@@ -48,7 +48,7 @@ glif =(l,r,d)=> {
         y: O(my()),
         dx: O(0),
         dy: O(0),
-        hue: O('white')
+        hue: self.hue()
     }).tick(()=>{
         e.x( e.x() + e.dx() )
         e.y( e.y() + e.dy() )
@@ -61,7 +61,7 @@ glif =(l,r,d)=> {
     }).draw(()=>{
         push()
         textSize(36)
-        fill(e.hue())
+        fill(e.hue)
         text(e.g(), e.x(), e.y())
         textSize(8)
         pop()
@@ -69,27 +69,29 @@ glif =(l,r,d)=> {
     return e
 }
 
-    glowbox =(x,y,t)=> form({
+    glowbox =(x,y,t)=> {let g = form({
         t,
         x,
         y,
-        age: O(0)
+        age: O(2)
     }).tick(()=>{
-        age(age()+1)
+        g.age(g.age()+1)
     }).draw(()=>{
         push()
-          grey = 255/age
-          stroke(grey,grey,grey)
-          stroke(grey,grey,grey)
+          grey = 255/(g.age()/2)
+          fill(color(255,255,255,grey))
+          stroke(color(255,255,255,grey))
           text(t, x, y)
         pop()
-    })
+    }); return g}
+
+    glowbox(100,100, 'testtesttest')
 
 const c = form({
     x: O(mouseX),
     y: O(mouseY),
     buff: O(()=>sh()),
-    hue: O('white')
+    hue: O(()=>color(255*syc(), 255*cyc(), 255-(syc())))
 }).tick(() => {
     c.x( mouseX )
     c.y( mouseY )
@@ -109,7 +111,7 @@ wisp =args=> {
         y: O((args && args.y) ?? my()),
         dx: O(0),
         dy: O(0),
-        hue: args && args.hue ? O(args.hue) : O('white')
+        hue: O('white')
     }).tick(() => {
         w.x(w.x() + w.dx())
         w.y(w.y() + w.dy())
@@ -129,7 +131,7 @@ wisp =args=> {
     return w
 }
 
-link =(a,b)=> {
+    link =(a,b)=> {
     let l = form({
       x1: O(()=>a.x()),
       y1: O(()=>a.y()),
@@ -148,7 +150,7 @@ link =(a,b)=> {
 
 let interval
 stream =f=> {
-    interval = setInterval(f, 300)
+    interval = setInterval(f, 701)
 }
     stop =()=> { clearInterval(interval) }
 
