@@ -1,7 +1,39 @@
 _ = PureState
 see =s=> JSON.stringify(s, null, 2)
-view =x=> see(x)
+view =x=> {
+    let s = ""
+    let o = {}
+    for (let k of Object.keys(x)) {
+        if (k[0] != "_") {
+            o[k] = x[k]()
+        }
+    }
+    for (let [k,v] of Object.entries(o)) {
+        s += `${k}:${nfp(v,4,2)}\n`
+    }
+    return s
+}
 
+sh = _("")
+
+cmd =s=>{
+    console.log(s)
+    eval(s)
+}
+keyPressed =(k)=> {
+    if (k.key == "Enter") {
+        let c = sh()
+        sh("")
+        cmd(c)
+    } else if (k.key == "Backspace") {
+        let s = sh()
+        sh(s.slice(0, s.length-1))
+    } else {
+        if (k.key.length == 1) {
+            sh(sh() + k.key)
+        }
+    }
+}
 setup =()=> {
     FPS = 60
     createCanvas(1280, 960)
@@ -9,6 +41,7 @@ setup =()=> {
     frameRate(FPS)
     textFont('Unifont')
     textSize(32)
+
 
 
     fill('white')
@@ -27,7 +60,6 @@ setup =()=> {
 c = 32
 ch =s=> { let _c = c; text(s, _c, 64); _c+=32; c+=32 }
 
-
 draw =()=> {
     background(bg())
     frame(frameCount)
@@ -44,6 +76,15 @@ draw =()=> {
     }
     for (let [eid,ent] of Object.entries(_ents)) {
         ent._draw()
+    }
+
+
+    translate(mouseX, mouseY);
+    for (let i = 0; i < 60; i++) {
+        rotate(TAU / 60);
+        stroke('white');
+        let d = abs(floor(randomGaussian(0, 15)));
+        line(0, 0, d, 0);
     }
 }
 
