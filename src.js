@@ -48,7 +48,7 @@ glif =(l,r,d)=> {
         y: O(my()),
         dx: O(0),
         dy: O(0),
-        hue: self.hue()
+        hue: O(self.hue())
     }).tick(()=>{
         e.x( e.x() + e.dx() )
         e.y( e.y() + e.dy() )
@@ -61,7 +61,7 @@ glif =(l,r,d)=> {
     }).draw(()=>{
         push()
         textSize(36)
-        fill(e.hue)
+        fill(e.hue())
         text(e.g(), e.x(), e.y())
         textSize(8)
         pop()

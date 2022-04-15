@@ -52,7 +52,7 @@ setup =()=> {
 
     frame = O(0)
     t = O(0)
-    bg = O('black')
+    bg = O('pink')
     syc = O(() => sin(TAU*t() / 1000))
     cyc = O(() => cos(TAU*t() / 1000))
     mx = O(mouseX)
@@ -74,6 +74,7 @@ draw =()=> {
     ch("\u0F3A")
     text(nfp(syc(), 2, 4), 32, 32)
 
+
     for (let [eid,ent] of Object.entries(_ents)) {
         ent._tick()
     }
@@ -82,4 +83,8 @@ draw =()=> {
     }
 
 }
+
+
+
+
 
