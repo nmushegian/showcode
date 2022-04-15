@@ -1,4 +1,5 @@
-_ = PureState
+O = PureState
+
 see =s=> JSON.stringify(s, null, 2)
 view =x=> {
     let s = ""
@@ -14,11 +15,12 @@ view =x=> {
     return s
 }
 
-sh = _("")
+sh = O("")
 
 cmd =s=>{
     console.log(s)
-    eval(s)
+    let x = eval(s)
+    console.log(x)
 }
 keyPressed =(k)=> {
     if (k.key == "Enter") {
@@ -47,13 +49,13 @@ setup =()=> {
     fill('white')
     stroke('white')
 
-    frame = _(0)
-    t = _(0)
-    bg = _('black')
-    syc = _(() => sin(TAU*t() / 1000))
-    cyc = _(() => cos(TAU*t() / 1000))
-    mx = _(mouseX)
-    my = _(mouseY)
+    frame = O(0)
+    t = O(0)
+    bg = O('black')
+    syc = O(() => sin(TAU*t() / 1000))
+    cyc = O(() => cos(TAU*t() / 1000))
+    mx = O(mouseX)
+    my = O(mouseY)
 
 }
 
@@ -78,13 +80,5 @@ draw =()=> {
         ent._draw()
     }
 
-
-    translate(mouseX, mouseY);
-    for (let i = 0; i < 60; i++) {
-        rotate(TAU / 60);
-        stroke('white');
-        let d = abs(floor(randomGaussian(0, 15)));
-        line(0, 0, d, 0);
-    }
 }
 
