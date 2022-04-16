@@ -1,4 +1,4 @@
-O = PureState
+O = require('purestate')
 
 see =s=> JSON.stringify(s, null, 2)
 view =x=> {
@@ -37,7 +37,8 @@ keyPressed =(k)=> {
         }
     }
 }
-setup =()=> {
+
+const setup =()=> {
     FPS = 60
     createCanvas(1280, 960)
     angleMode(RADIANS)
@@ -63,7 +64,7 @@ setup =()=> {
 c = 32
 ch =s=> { let _c = c; text(s, _c, 64); _c+=32; c+=32 }
 
-draw =()=> {
+const draw =()=> {
     background(bg())
     frame(frameCount)
     t(t() + deltaTime)
@@ -85,6 +86,6 @@ draw =()=> {
 }
 
 
-
+export {setup, draw}
 
 

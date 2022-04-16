@@ -1,10 +1,16 @@
-const { form, orb } = require('./ent')
+const { form, orb, O } = require('./ent')
 const font = require('@fontsource/unifont')
+const show = require('./show.js')
 
-O = orb
+console.log('src.js')
 
-onload =()=>{
+window.onload =()=>{
 
+
+    console.log('onload')
+    console.log(globalThis)
+    globalThis.x = "test"
+    console.log(globalThis.x)
 _ = {}
 
 

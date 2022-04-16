@@ -1,4 +1,7 @@
 module.exports = {
+    entry: {
+        js: "./src/main.js"
+    },
     optimization: {
         minimize: false
     },

@@ -1,6 +1,4 @@
 
-orb = PureState
-
 _ents = {}
 let _entc = 0
 
