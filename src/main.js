@@ -1,9 +1,10 @@
+console.log('load main.js')
+
 const show = require('./show.js')
-const src = require('./src.js')
+const init = require('./init.js')
+
+setup = init.setup
+draw = init.draw
 
 
-setup = show.setup
-draw = show.draw
 
-
-console.log('main.js')

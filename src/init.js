@@ -1,5 +1,9 @@
-const O = require('purestate')
 
+const { Ent } = require('./ent')
+
+const glif = require('./ent/glif')
+
+const O = require('purestate')
 
 export const keyPressed =(k)=> {
     if (k.key == "Enter") {
@@ -40,7 +44,12 @@ export const setup =()=> {
 
 }
 
+let _firstdraw = true
 export const draw =()=> {
+    if (_firstdraw) {
+      console.log('firstdraw')
+        _firstdraw = false
+    }
     background(bg())
     frame(frameCount)
     t(t() + deltaTime)

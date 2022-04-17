@@ -1,8 +1,9 @@
+export const orb = require('purestate')
 
-_ents = {}
+let _ents = {}
 let _entc = 0
 
-class Ent {
+export class Ent {
     constructor(o) {
         if (o) {
             Object.assign(this, o)
@@ -24,11 +25,10 @@ class Ent {
     }
 }
 
-form =o=> {
+export let form =o=> {
     const e = new Ent(o)
     _ents[_entc] = e
     _entc++
     return e
 }
 
-module.exports = { Ent, form, orb }
