@@ -1,9 +1,11 @@
-
+console.log('load init.js')
 const { Ent } = require('./ent')
 
 const glif = require('./ent/glif')
 
 const O = require('purestate')
+
+
 
 export const keyPressed =(k)=> {
     if (k.key == "Enter") {
@@ -20,6 +22,17 @@ export const keyPressed =(k)=> {
         }
     }
 }
+
+export let FPS
+export let frame
+export let t
+export let bg
+export let syc
+export let cyc
+export let mx
+export let my
+export let c
+export let ch = O("")
 
 export const setup =()=> {
     FPS = 60
