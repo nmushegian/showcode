@@ -5,9 +5,6 @@ console.log('src.js')
 
 window.onload =()=>{
 
-c = 32
-ch =s=> { let _c = c; text(s, _c, 64); _c+=32; c+=32 }
-
 view =x=> {
     let s = ""
     let o = {}

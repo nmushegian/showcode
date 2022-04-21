@@ -1,4 +1,5 @@
 export const orb = require('purestate')
+export const $ = orb
 
 let _ents = {}
 let _entc = 0

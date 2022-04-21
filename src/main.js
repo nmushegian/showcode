@@ -1,26 +1,10 @@
 console.log('load main.js')
-//const { Ent } = require('./ent')
 
-const glif = require('./ent/glif')
+require('@fontsource/unifont')
 
-const O = require('purestate')
-
-window.keyPressed =(k)=> {
-    console.log('pressed')
-    if (k.key == "Enter") {
-        let c = sh()
-        sh("")
-        glowbox(mouseX+64,mouseY,c)
-        cmd(c)
-    } else if (k.key == "Backspace") {
-        let s = sh()
-        sh(s.slice(0, s.length-1))
-    } else {
-        if (k.key.length == 1) {
-            sh(sh() + k.key)
-        }
-    }
-}
+globalThis.$ = require('purestate')
+globalThis._ = {}
+const O = $
 
 export let _ents = {}
 export let FPS
@@ -31,9 +15,37 @@ export let syc
 export let cyc
 export let mx
 export let my
-export let c
-export let ch = O("")
+
 export let sh = O("")
+
+_.cmd =s=> {
+    console.log(s)
+    let x = eval(s)
+    console.log(s)
+}
+
+export let c = 32
+export let ch =s=> { let _c = c; text(s, _c, 64); _c+=32; c+=32 }
+
+window.keyPressed =(k)=> {
+    if (k.key == "Enter") {
+        let c = sh()
+        sh("")
+        _.cmd(c)
+    } else if (k.key == "Backspace") {
+        let s = sh()
+        sh(s.slice(0, s.length-1))
+    } else {
+        if (k.key.length == 1) {
+            sh(sh() + k.key)
+        }
+    }
+}
+
+window.keyReleased =k=> {
+    console.log('released')
+}
+
 
 window.setup =()=> {
     FPS = 60
@@ -42,8 +54,6 @@ window.setup =()=> {
     frameRate(FPS)
     textFont('Unifont')
     textSize(32)
-
-
 
     fill('white')
     stroke('white')
@@ -73,7 +83,6 @@ window.draw =()=> {
     ch("\u0F06")
     ch("\u0F3A")
     text(nfp(syc(), 2, 4), 32, 32)
-
 
     for (let [eid,ent] of Object.entries(_ents)) {
         ent._tick()
