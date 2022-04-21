@@ -1,8 +1,8 @@
 export const orb = require('purestate')
 export const $ = orb
 
-let _ents = {}
-let _entc = 0
+export let _ents = {}
+export let _entc = 0
 
 export class Ent {
     constructor(o) {
@@ -29,6 +29,7 @@ export class Ent {
 export let form =o=> {
     const e = new Ent(o)
     _ents[_entc] = e
+    console.log(`formed`, _entc, e)
     _entc++
     return e
 }

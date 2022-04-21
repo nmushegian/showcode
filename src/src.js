@@ -19,24 +19,16 @@ view =x=> {
     return s
 }
 
-sh = O("")
-
 cmd =s=>{
     console.log(s)
     let x = eval(s)
     console.log(x)
 }
-see =s=> JSON.stringify(s, null, 2)
 
-    console.log('onload')
-    console.log(globalThis)
-    globalThis.x = "test"
-    console.log(globalThis.x)
+    see =s=> JSON.stringify(s, null, 2)
+
 _ = {}
 
-
-    anim = {
-    }
 
     glowbox =(x,y,t)=> {let g = form({
         t,
@@ -56,23 +48,6 @@ _ = {}
 
     glowbox(100,100, 'testtesttest')
 
-const c = form({
-    x: O(mouseX),
-    y: O(mouseY),
-    buff: O(()=>sh()),
-    hue: O(()=>color(255*syc(), 255*cyc(), 255-(syc())))
-}).tick(() => {
-    c.x( mouseX )
-    c.y( mouseY )
-}).draw(() => {
-    push()
-    fill(c.hue())
-    stroke(c.hue())
-    text("\u2609 ", c.x()+32, c.y())
-    text(c.buff(), c.x()+64, c.y())
-    pop()
-})
-self = c
 
 wisp =args=> {
     let w = form({
