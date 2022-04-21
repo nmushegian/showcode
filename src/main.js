@@ -1,13 +1,12 @@
-console.log('load init.js')
-const { Ent } = require('./ent')
+console.log('load main.js')
+//const { Ent } = require('./ent')
 
 const glif = require('./ent/glif')
 
 const O = require('purestate')
 
-
-
-export const keyPressed =(k)=> {
+window.keyPressed =(k)=> {
+    console.log('pressed')
     if (k.key == "Enter") {
         let c = sh()
         sh("")
@@ -23,6 +22,7 @@ export const keyPressed =(k)=> {
     }
 }
 
+export let _ents = {}
 export let FPS
 export let frame
 export let t
@@ -33,8 +33,9 @@ export let mx
 export let my
 export let c
 export let ch = O("")
+export let sh = O("")
 
-export const setup =()=> {
+window.setup =()=> {
     FPS = 60
     createCanvas(1280, 960)
     angleMode(RADIANS)
@@ -58,7 +59,7 @@ export const setup =()=> {
 }
 
 let _firstdraw = true
-export const draw =()=> {
+window.draw =()=> {
     if (_firstdraw) {
       console.log('firstdraw')
         _firstdraw = false
