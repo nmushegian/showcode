@@ -16,7 +16,6 @@ _.mx = $()
 _.my = $()
 _.syc = $(()=>{})
 _.cyc = $(()=>{})
-
 _.sh = $('')
 
 _.cmd =s=> {
@@ -56,14 +55,17 @@ window.setup =()=> {
     textFont('Unifont')
     textSize(32)
 
-    fill('white')
-    stroke('white')
-
     _.t(0)
     _.bg('pink')
     _.frame(frameCount)
     _.syc = $(() => sin(TAU*_.t() / 1000))
     _.cyc = $(() => cos(TAU*_.t() / 1000))
+
+    const { wisp } = require('./wisp')
+    console.log(wisp)
+    globalThis.wisp = wisp;
+    globalThis.link = require('./link')
+
     const self = require('./self')
 }
 

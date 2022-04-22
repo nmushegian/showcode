@@ -6,7 +6,7 @@ export const self = form({
     x: _.mx,
     y: _.my,
     buff: _.sh,
-    hue: $(()=>color(255*_.syc(), 255*_.cyc(), 255-(_.syc())))
+    hue: $('black')//()=>color(255*_.syc(), 255*_.cyc(), 255-(_.syc())))
 }).tick(() => {
 }).draw(() => {
     push()

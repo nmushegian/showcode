@@ -46,51 +46,7 @@ _ = {}
         pop()
     }); return g}
 
-    glowbox(100,100, 'testtesttest')
 
-
-wisp =args=> {
-    let w = form({
-        x: O((args && args.x) ?? mx()),
-        y: O((args && args.y) ?? my()),
-        dx: O(0),
-        dy: O(0),
-        hue: O('white')
-    }).tick(() => {
-        w.x(w.x() + w.dx())
-        w.y(w.y() + w.dy())
-        w.dx(w.dx() + (random() - 1/2)/50)
-        w.dy(w.dy() + (random() - 1/2)/50)
-    }).draw(() => {
-        push()
-        translate(w.x(), w.y());
-        for (let i = 0; i < 60; i++) {
-            rotate(TAU / 60);
-            stroke(w.hue());
-            let d = abs(floor(randomGaussian(0, 15)));
-            line(0, 0, d, 0);
-        }
-        pop()
-    })
-    return w
-}
-
-    link =(a,b)=> {
-    let l = form({
-      x1: O(()=>a.x()),
-      y1: O(()=>a.y()),
-      x2: O(()=>b.x()),
-      y2: O(()=>b.y()),
-      hue: O('white')
-    }).tick(()=>{
-    }).draw(()=>{
-        push()
-        stroke(l.hue())
-        line(l.x1(), l.y1(), l.x2(), l.y2())
-        pop()
-    })
-    return l
-}
 
 let interval
 stream =f=> {
