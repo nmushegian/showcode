@@ -1,3 +1,4 @@
+const { $, form } = require('./ents')
 
 export const glif =(l,r,d)=> {
         if (l == 'snake') {
@@ -32,21 +33,25 @@ export const glif =(l,r,d)=> {
         }
     }
     let e = form({
-        l: O(l),
-        r: O(r),
-        g: O(l),
-        d: O( d ? d : 3),
-        x: O(mx()),
-        y: O(my()),
-        dx: O(0),
-        dy: O(0),
-        hue: O(self.hue())
+        l: $(l),
+        r: $(r),
+        g: $(l),
+        d: $( d ? d : 3),
+        x: $(_.mx()),
+        y: $(_.my()),
+        dx: $(0),
+        dy: $(0),
+        hue: $(color('teal'))
     }).tick(()=>{
         e.x( e.x() + e.dx() )
         e.y( e.y() + e.dy() )
         e.dy( e.dy() + (random() - 1/2)/20)
         e.dx( e.dx() + (random() - 1/2)/20)
-        let ff = floor(frame()/e.d())
+        const c1 = color('teal')
+        const c2 = color('lightblue')
+        const c3 = lerpColor(c1, c2, _.syc2())
+        e.hue(c3)
+        let ff = floor(_.frame()/e.d())
         let av = e.l() + (ff % e.r())
         let s = String.fromCharCode(av)
         e.g(s)

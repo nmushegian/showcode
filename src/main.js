@@ -47,6 +47,14 @@ window.keyReleased =k=> {
 }
 
 
+const { self } = require('./self')
+export const reset =()=> {
+    for (const [k,v] of Object.entries(_ents)) {
+        delete _ents[k]
+    }
+    _.self = self()
+}
+
 window.setup =()=> {
     FPS = 60
     createCanvas(1280, 960)
@@ -61,6 +69,7 @@ window.setup =()=> {
     _.frame(frameCount)
     _.syc = $(() => sin(TAU*_.t() / 1000))
     _.cyc = $(() => cos(TAU*_.t() / 1000))
+    _.syc2 = $(()=> sin(2*TAU*_.t() / 10000))
 
     const { wisp } = require('./wisp')
     const { link } = require('./link')
@@ -70,8 +79,16 @@ window.setup =()=> {
     const { stream, stop } = require('./stream')
     globalThis.stream = stream
     globalThis.stop = stop
+    const { paint } = require('./paint')
+    globalThis.paint = paint
 
-    const self = require('./self')
+    const { glif } = require('./glif')
+    globalThis.glif = glif
+
+    globalThis.reset = reset
+    reset()
+
+
 //    _.w = _.wisp()
 }
 
@@ -82,7 +99,7 @@ window.draw =()=> {
       console.log('firstdraw')
         _firstdraw = false
     }
-    background(_.bg())
+    background(lerpColor(color('pink'), color('lightgrey'), _.syc()))
     _.frame(frameCount)
     _.t(_.t() + deltaTime)
     _.mx(mouseX)

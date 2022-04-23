@@ -6,7 +6,7 @@ export const wisp =args=> {
         y: $((args && args.y) ?? _.my()),
         dx: $(0),
         dy: $(0),
-        hue: $('white'),
+        hue: $('lightyellow'),
         jitter: $(1/50)
     }).tick(() => {
         w.x(w.x() + w.dx())
