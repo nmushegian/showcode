@@ -5,7 +5,7 @@ console.log('src.js')
 
 window.onload =()=>{
 
-view =x=> {
+    view =x=> {
     let s = ""
     let o = {}
     for (let k of Object.keys(x)) {
@@ -29,22 +29,6 @@ cmd =s=>{
 
 _ = {}
 
-
-    glowbox =(x,y,t)=> {let g = form({
-        t,
-        x,
-        y,
-        age: O(2)
-    }).tick(()=>{
-        g.age(g.age()+1)
-    }).draw(()=>{
-        push()
-          grey = 255/(g.age()/2)
-          fill(color(255,255,255,grey))
-          stroke(color(255,255,255,grey))
-          text(t, x, y)
-        pop()
-    }); return g}
 
 
 

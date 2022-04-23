@@ -54,6 +54,7 @@ window.setup =()=> {
     frameRate(FPS)
     textFont('Unifont')
     textSize(32)
+    cursor(CROSS)
 
     _.t(0)
     _.bg('pink')

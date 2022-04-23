@@ -12,8 +12,8 @@ export const self = form({
     push()
     fill(self.hue())
     stroke(self.hue())
-    text("\u2609 ", self.x()+32, self.y())
-    text(self.buff(), self.x()+64, self.y())
+    text("\u2609 ", self.x() - 8, self.y() - 64)
+    text(self.buff(), self.x() + 32, self.y() - 64)
     pop()
 })
 
