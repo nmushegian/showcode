@@ -62,11 +62,16 @@ window.setup =()=> {
     _.cyc = $(() => cos(TAU*_.t() / 1000))
 
     const { wisp } = require('./wisp')
-    console.log(wisp)
-    globalThis.wisp = wisp;
-    globalThis.link = require('./link')
+    const { link } = require('./link')
+    globalThis.wisp = wisp
+    globalThis.link = link
+
+    const { stream, stop } = require('./stream')
+    globalThis.stream = stream
+    globalThis.stop = stop
 
     const self = require('./self')
+//    _.w = _.wisp()
 }
 
 

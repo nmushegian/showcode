@@ -48,16 +48,3 @@ _ = {}
 
 
 
-let interval
-stream =f=> {
-    interval = setInterval(f, 701)
-}
-    stop =()=> { clearInterval(interval) }
-
-    trix =(l,r,d)=>{
-        let t = form({
-            row: O(() => [])
-        })
-    }
-
-}

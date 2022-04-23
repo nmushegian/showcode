@@ -2,11 +2,11 @@ const { form, $ } = require('./ents')
 
 export const link =(a,b)=> {
     let l = form({
-        x1: O(()=>a.x()),
-        y1: O(()=>a.y()),
-        x2: O(()=>b.x()),
-        y2: O(()=>b.y()),
-        hue: O('white')
+        x1: $(()=>a.x()),
+        y1: $(()=>a.y()),
+        x2: $(()=>b.x()),
+        y2: $(()=>b.y()),
+        hue: $('white')
     }).tick(()=>{
     }).draw(()=>{
         push()
