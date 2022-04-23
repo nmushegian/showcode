@@ -41,16 +41,15 @@ export const glif =(l,r,d)=> {
         y: $(_.my()),
         dx: $(0),
         dy: $(0),
-        hue: $(color('teal'))
+        c1: $(color(random(255), random(255), random(255))),
+        c2: $(color(random(255), random(255), random(255))),
+        hue: $('white')
     }).tick(()=>{
         e.x( e.x() + e.dx() )
         e.y( e.y() + e.dy() )
         e.dy( e.dy() + (random() - 1/2)/20)
         e.dx( e.dx() + (random() - 1/2)/20)
-        const c1 = color('teal')
-        const c2 = color('lightblue')
-        const c3 = lerpColor(c1, c2, _.syc2())
-        e.hue(c3)
+        e.hue(lerpColor(e.c1(), e.c2(), _.syc2()))
         let ff = floor(_.frame()/e.d())
         let av = e.l() + (ff % e.r())
         let s = String.fromCharCode(av)
