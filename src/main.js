@@ -85,6 +85,9 @@ window.setup =()=> {
     const { glif } = require('./glif')
     globalThis.glif = glif
 
+    const { matrix } = require('./matrix')
+    globalThis.matrix = matrix
+
     globalThis.reset = reset
     reset()
 
@@ -99,7 +102,7 @@ window.draw =()=> {
       console.log('firstdraw')
         _firstdraw = false
     }
-    background(lerpColor(color('pink'), color('lightgrey'), _.syc()))
+    background(lerpColor(color('pink'), color('lightgrey'), _.syc2()))
     _.frame(frameCount)
     _.t(_.t() + deltaTime)
     _.mx(mouseX)
