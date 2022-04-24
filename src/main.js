@@ -14,6 +14,9 @@ _.frame = $()
 _.t = $()
 _.mx = $()
 _.my = $()
+_.bpm = $(120)
+_.beat = $(()=>{})
+_.bar = $(()=>{})
 _.syc = $(()=>{})
 _.cyc = $(()=>{})
 _.sh = $('')
@@ -28,6 +31,15 @@ export let c = 32
 export let ch =s=> { let _c = c; text(s, _c, 64); _c+=32; c+=32 }
 
 window.keyPressed =(k)=> {
+    console.log(k)
+    if (k.key == "ArrowUp") {
+        _.bpm(_.bpm()+1)
+        console.log(_.bpm())
+    }
+    if (k.key == "ArrowDown") {
+        _.bpm(_.bpm()-1)
+        console.log(_.bpm())
+    }
     if (k.key == "Enter") {
         let c = _.sh()
         _.sh("")
@@ -67,9 +79,15 @@ window.setup =()=> {
     _.t(0)
     _.bg('pink')
     _.frame(frameCount)
+
+    let bps = $(()=>(_.bpm() / 60))
+    _.beat = $(() => sin(_.t() * TAU * bps() / 1000))
+    _.beatframe = $(() => Math.floor(bps() * _.t() / 1000))
+
     _.syc = $(() => sin(TAU*_.t() / 1000))
     _.cyc = $(() => cos(TAU*_.t() / 1000))
     _.syc2 = $(()=> sin(2*TAU*_.t() / 10000))
+
 
     const { wisp } = require('./wisp')
     const { link } = require('./link')
@@ -88,6 +106,12 @@ window.setup =()=> {
     const { matrix } = require('./matrix')
     globalThis.matrix = matrix
 
+    const { beat } = require('./beat')
+    globalThis.beat = beat
+    const b = beat(120)
+    b.x(200)
+    b.y(200)
+
     globalThis.reset = reset
     reset()
 
@@ -95,9 +119,9 @@ window.setup =()=> {
 //    _.w = _.wisp()
 }
 
-
 let _firstdraw = true
 window.draw =()=> {
+    console.log(_.beatframe())
     if (_firstdraw) {
       console.log('firstdraw')
         _firstdraw = false
@@ -108,9 +132,8 @@ window.draw =()=> {
     _.mx(mouseX)
     _.my(mouseY)
     c = 32
-    ch("\u0F06")
-    ch("\u0F3A")
-    text(nfp(_.syc(), 2, 4), 32, 32)
+    text(nfp(_.bpm()),32,32)
+    text(1 + _.beatframe() % 3,32,64)
 
     for (let [eid,ent] of Object.entries(_ents)) {
         ent._tick()
