@@ -67,24 +67,25 @@ const pair = form({
   }
 })
 
-console.log(pair.x())
-console.log(pair.y())
-console.log(pair.z())
+const t = $(() => Date.now())
 
 const wisp =({
-    x=100,
-    y=100,
-    dx=0.1,
-    dy=0.1
-}=o={})=> form({
-    x, y, dx, dy,
+    x = 99
+}=_={
+})=> form({
+    x,
+    ..._,
     flow: {
         xmove: _=> { _.x(_.x() + _.dx()) }
      ,  ymove: _=> { _.y(_.y() + _.dy()) }
     }
 })
 
-console.log(wisp())
+//const w = wisp({x:100, y:100})
+t(40)
+console.log('no args', wisp())
+//console.log('x in args', wisp({x:50}))
+
 
 /*
 let form = {
