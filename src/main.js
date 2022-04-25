@@ -29,13 +29,10 @@ _.cmd =s=> {
 }
 
 _.self = wand({x: _.mx, y: _.my})
-console.log(_.self)
-export let c = 32
-export let ch =s=> { let _c = c; text(s, _c, 64); _c+=32; c+=32 }
 
 window.keyPressed =(k)=> {
     console.log(k)
-    _.self.line(_.self.line() + k.key)
+
     if (k.key == "ArrowUp") {
         _.bpm(_.bpm()+1)
         console.log(_.bpm())
@@ -45,15 +42,20 @@ window.keyPressed =(k)=> {
         console.log(_.bpm())
     }
     if (k.key == "Enter") {
-        let c = _.sh()
-        _.sh("")
-        _.cmd(c)
+        let c = _.self.line()
+        try {
+            let res = _.cmd(c)
+            console.log(res)
+            _.self.line("")
+        } catch (e) {
+            _.self.hue('red')
+            setTimeout(()=>{_.self.hue('black')}, 100)
+        }
     } else if (k.key == "Backspace") {
-        let s = _.sh()
-        _.sh(s.slice(0, s.length-1))
+        _.self.line(_.self.line().slice(0, _.self.line().length-1))
     } else {
         if (k.key.length == 1) {
-            _.sh(_.sh() + k.key)
+            _.self.line(_.self.line() + k.key)
         }
     }
 }
@@ -68,7 +70,7 @@ export const reset =()=> {
     for (const [k,v] of Object.entries(_forms)) {
         delete _forms[k]
     }
-//    _.self = self()
+    _.self = wand({x:_.mx,y:_.my})
 }
 
 import { wisp } from './wisp.js'
@@ -117,15 +119,13 @@ window.draw =()=> {
     _.t(_.t() + deltaTime)
     _.mx(mouseX)
     _.my(mouseY)
-    c = 32
+    let c = 32
     text(nfp(_.bpm()),32,32)
     text(1 + _.beatframe() % 4,32,64)
     const baton = String.fromCharCode(100 + (_.beatframe()*1001)%1600)
     text(baton, 32, 96)
 
     for (let [eid,ent] of Object.entries(_forms)) {
-        console.log(ent)
-        console.log(ent.x())
         drawform(ent)
     }
 }
