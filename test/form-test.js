@@ -1,9 +1,5 @@
 import { test as it } from 'tapzero'
-//const t = require('tapzero').test
-//const { $, form, flow } = require('../src/form')
-import { $, form, flow } from '../src/form.js'
-
-
+import { $, form, flow, draw } from '../src/form.js'
 
 it('form', t=>{
     let pt = form()
@@ -34,14 +30,20 @@ it('flow', t=> {
     form({
         x: 100,
         y: 100,
-        flows: $(()=>({
+        flows: {
             xmove: ({_}) => {
                 _.x(_.x() + 1)
             },
             ymove: ({_}) => {
                 _.y(_.y() + 1)
             }
-        }))
+        },
+        faces: {
+            p5: ({$,_,kids}) => {
+                $.point(_.x(), _.y())
+            },
+            svg: ({svg,_,kids}) => {}
+        }
     })
     pt.flows().xmove({_:pt})
     t.equal(pt.x(), 101)
@@ -50,4 +52,7 @@ it('flow', t=> {
 
     flow(pt)
     t.equal(pt.x(), 103)
+
+    draw(pt)
 })
+
