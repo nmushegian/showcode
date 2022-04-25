@@ -1,7 +1,7 @@
-import {test as it} from 'tapzero'
+import { test as it } from 'tapzero'
 //const t = require('tapzero').test
 //const { $, form, flow } = require('../src/form')
-import { $, form, flow} from '../src/form.js'
+import { $, form, flow } from '../src/form.js'
 
 
 
@@ -30,16 +30,24 @@ it('form', t=>{
 })
 
 it('flow', t=> {
-    let pt = form({
+    let pt =
+    form({
         x: 100,
-        y: 100
+        y: 100,
+        flows: $(()=>({
+            xmove: ({_}) => {
+                _.x(_.x() + 1)
+            },
+            ymove: ({_}) => {
+                _.y(_.y() + 1)
+            }
+        }))
     })
-    let movement = flow({_:pt}, ({_})=> {
-        _.x(_.x() + 1)
-    })
-    console.log(movement)
-    movement.flow()()
-    console.log(pt.x())
-    movement.flow()()
-    console.log(pt.x())
+    pt.flows().xmove({_:pt})
+    t.equal(pt.x(), 101)
+    pt.flows().xmove({_:pt})
+    t.equal(pt.x(), 102)
+
+    flow(pt)
+    t.equal(pt.x(), 103)
 })
