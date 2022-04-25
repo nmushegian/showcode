@@ -69,26 +69,25 @@ const pair = form({
 
 const t = $(() => Date.now())
 
-const args = ()=>(arguments[0]??{})
+const _$ = ()=>(arguments[0]||{})
 
 function wisp({
-    x=99,y=99
-} = _ = args() ) {
-    return form({
-        x, y,
-        ..._,
-        flow: {
-            xmove: _=> { _.x(_.x() + _.dx()) }
-          , ymove: _=> { _.y(_.y() + _.dy()) }
-        }
-    })
+    x=99, y=99
+}= _= _$ () ) { return form({
+    x, y,
+    ..._,
+    flow: {
+        xmove: _=> { _.x(_.x() + _.dx()) }
+      , ymove: _=> { _.y(_.y() + _.dy()) }
+    }
+})
 }
 
 //const w = wisp({x:100, y:100})
 t(40)
 console.log('no args', wisp())
 console.log('x in args', wisp({x:50, y:50}))
-
+wisp()
 
 /*
 let form = {
