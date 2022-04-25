@@ -1,10 +1,11 @@
 console.log('load main.js')
 
-require('@fontsource/unifont')
+import '@fontsource/unifont'
 
-const { _ents } = require('./ents')
+import { _ents } from './ents'
 
-globalThis.$ = require('purestate')
+import {* as $} from 'purestate'
+globalThis.$ = $
 globalThis._ = {}
 const O = $
 
