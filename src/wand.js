@@ -2,7 +2,7 @@ import { form } from './form.js'
 console.log('load wand.js')
 export function wand(o={}) {
     return form({
-        r: 10,
+        r: 16,
         x: o.x ?? 0,
         y: o.y ?? 0,
         line: "",
