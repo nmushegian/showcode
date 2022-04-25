@@ -6,11 +6,11 @@ export function wand(o={}) {
         y: o.y ?? 0,
         line: "",
         hue: o.hue ?? 'black',
-        faces: {
-            p5: ({$,_}) => {
-                $.fill(_.hue())
-                $.text(_.line(), 100, 100)
-            }
+        _draw: ({$,_}) => {
+            console.log('in _draw')
+            $.fill(_.hue())
+            $.text(_.line(), 100, 100)
+            // $.draw( kids )
         }
     })
 }

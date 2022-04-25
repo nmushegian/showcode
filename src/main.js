@@ -3,13 +3,13 @@ console.log('load main.js')
 import '@fontsource/unifont'
 
 import { _ents } from './ents.js'
+import { form, $, draw as drawform } from './form.js'
 
-import {default as $} from 'purestate'
+import { wand } from './wand.js'
+
 globalThis.$ = $
 globalThis._ = {}
-const O = $
 
-export let FPS
 
 _.frame = $()
 _.t = $()
@@ -21,12 +21,15 @@ _.bar = $(()=>{})
 _.syc = $(()=>{})
 _.cyc = $(()=>{})
 _.sh = $('')
+_.fps = $(60)
 
 _.cmd =s=> {
     console.log(s)
     let x = eval(s)
     console.log(s)
 }
+
+_.self = wand({x: _.mx, y: _.my})
 
 export let c = 32
 export let ch =s=> { let _c = c; text(s, _c, 64); _c+=32; c+=32 }
@@ -77,10 +80,10 @@ import { link } from './link.js'
 //const { sun } = require('./sun')
 window.setup =()=> {
 
-    FPS = 60
+    _.fps(60)
     createCanvas(1280, 960)
     angleMode(RADIANS)
-    frameRate(FPS)
+    frameRate(_.fps())
     textFont('Unifont')
     textSize(32)
     cursor(CROSS)
@@ -97,34 +100,8 @@ window.setup =()=> {
     _.syc2 = $(()=> sin(2*TAU*_.t() / 10000))
     _.bg = $(()=>lerpColor(color('teal'), color('darkgrey'), _.syc2()))
 
-
     globalThis.wisp = wisp
     globalThis.link = link
-
-/*
-    globalThis.stream = stream
-    globalThis.stop = stop
-
-    globalThis.paint = paint
-
-
-    globalThis.glif = glif
-
-
-    globalThis.matrix = matrix
-
-   // const { beat } = require('./beat')
-   // globalThis.beat = beat
-
-
-
-    globalThis.sun = sun
-
-    globalThis.reset = reset
-    reset()
-*/
-
-//    _.w = _.wisp()
 }
 
 let _firstdraw = true
@@ -150,9 +127,8 @@ window.draw =()=> {
         ent._tick()
     }
     for (let [eid,ent] of Object.entries(_ents)) {
-        ent._draw()
+        drawform(ent)
     }
-
 }
 
 

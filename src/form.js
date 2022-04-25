@@ -13,11 +13,14 @@ export function init(p5) {
 export function form(o={}) {
     if (o._id) throw new Error(`panic: obj already has _id: ${o}`)
     let _form = {
-        _flows: {},
         _id: _formc++,
     }
     for (const [k,v] of Object.entries(o)) {
-        if (typeof(v) == 'function' && v.depended_by) { // hack, sentinel value
+        console.log(k,v)
+        if (k[0] == '_') {
+            console.log('direct assign prop', k)
+            _form[k] = v
+        } else if (typeof(v) == 'function' && v.depended_by) { // hack, sentinel value
             _form[k] = v
         } else {
             _form[k] = $(v)
@@ -27,28 +30,13 @@ export function form(o={}) {
     return _form
 }
 
-export function flow(o) {
-    if (o.flows) {
-        for (const [k, f] of Object.entries(flows)) {
-            f({_:o})
-        }
-    }
-    for (const [k, v] of Object.entries(o)) {
-        if (v.flows) flow(v)
-    }
-}
-
 export function draw(o) {
-    if (!o.faces) throw new Error(`object has no faces: ${o}`)
-    const kids = {}
-    const faces = o.faces()
-    for (const [k, v] of Object.entries(o)) {
-        if (v.faces) {
-            draw(v)
-        }
+    console.log('drawing')
+    if (o._draw) {
+        console.log('has a _draw')
+        _p5.push()
+        o._draw({$:_p5, _:o})
+        _p5.pop()
     }
-    _p5.push()
-    faces.p5({$:_p5, _:o})
-    _p5.pop()
 }
 

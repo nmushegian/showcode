@@ -3,7 +3,7 @@ import { test as it } from 'tapzero'
 import {default as p5} from '@mattheath/p5js-node'
 import * as fs from 'fs'
 
-import { init, draw, flow } from '../src/form.js'
+import { init, draw } from '../src/form.js'
 
 import { wand } from '../src/wand.js'
 
@@ -24,10 +24,11 @@ it('p5 setup', ()=>{ new p5(p=>{
         })
         w.hue('red')
         w.line('hi')
+        console.log(w)
 
-        flow(w)
-        
-        p.draw =()=> draw(w)
+        console.log('hue is', w.hue())
+        console.log('line is', w.line())
+        draw(w)
         p.redraw()
 
         const buff = p.canvas.toBuffer()
