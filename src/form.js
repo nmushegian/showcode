@@ -6,6 +6,11 @@ export { $ }
 export let _forms = {}
 export let _formc = 0
 
+export let _p5 = undefined
+export function init(p5) {
+    _p5 = p5
+}
+
 export function form(o={}) {
     if (o._id) throw new Error(`panic: obj already has _id: ${o}`)
     let _form = {
@@ -39,11 +44,12 @@ export function draw(o) {
     const kids = {}
     const faces = o.faces()
     for (const [k, v] of Object.entries(o)) {
-        const kids = {}
         if (v.faces) {
-            kids[k] = draw(v)
+            draw(v)
         }
     }
-    faces.p5({$:globalThis, _:o, kids})
+    _p5.push()
+    faces.p5({$:_p5, _:o})
+    _p5.pop()
 }
 
