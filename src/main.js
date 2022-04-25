@@ -76,7 +76,7 @@ export const reset =()=> {
 }
 
 import { wisp } from './wisp.js'
-import { link } from './link.js'
+//import { link } from './link.js'
 //const { stream, stop } = require('./stream')
 //const { paint } = require('./paint')
 //const { glif } = require('./glif')
@@ -105,7 +105,6 @@ window.setup =()=> {
     _.bg = $(()=>lerpColor(color('teal'), color('darkgrey'), _.syc2()))
 
     globalThis.wisp = wisp
-    globalThis.link = link
 }
 
 let _firstdraw = true
