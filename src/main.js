@@ -30,6 +30,12 @@ _.cmd =s=> {
 
 _.self = wand({x: _.mx, y: _.my})
 
+
+window.mouseWheel =e=> {
+    const neu = _.self.r() - e.delta / 10
+    _.self.r(neu > 10 ? neu : 10)
+}
+
 window.keyPressed =(k)=> {
     console.log(k)
 
@@ -81,6 +87,7 @@ import { link } from './link.js'
 //const { matrix } = require('./matrix')
 //const { sun } = require('./sun')
 window.setup =()=> {
+    noCursor()
     init(globalThis)
     _.fps(60)
     createCanvas(1280, 960)
@@ -88,7 +95,6 @@ window.setup =()=> {
     frameRate(_.fps())
     textFont('Unifont')
     textSize(32)
-    cursor(CROSS)
 
     _.t(0)
     _.frame(frameCount)
