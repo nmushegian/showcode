@@ -1,6 +1,6 @@
 console.log('load self.js')
 
-const { form, $ } = require('./ents')
+import { form, $ } from './ents.js'
 
 export const self =()=> {
     const self = form({

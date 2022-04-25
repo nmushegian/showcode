@@ -1,4 +1,7 @@
-export const orb = require('purestate')
+
+
+import {default as orb} from  'purestate'
+export { orb }
 export const $ = orb
 
 export let _ents = {}

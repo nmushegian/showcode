@@ -1,5 +1,3 @@
-//import { default as p5 } from '@mattheath/p5js-node'
-//console.log(p5)
 import { default as $ } from 'purestate'
 export { $ }
 
@@ -7,6 +5,7 @@ export let _forms = {}
 export let _formc = 0
 
 export let _p5 = undefined
+
 export function init(p5) {
     _p5 = p5
 }

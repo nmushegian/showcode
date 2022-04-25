@@ -1,4 +1,4 @@
-const { form, $ } = require('./ents')
+import { form, $ } from './ents.js'
 
 export const link =(a,b)=> {
     let l = form({

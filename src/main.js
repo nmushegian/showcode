@@ -2,9 +2,9 @@ console.log('load main.js')
 
 import '@fontsource/unifont'
 
-import { _ents } from './ents'
+import { _ents } from './ents.js'
 
-import {* as $} from 'purestate'
+import {default as $} from 'purestate'
 globalThis.$ = $
 globalThis._ = {}
 const O = $
@@ -60,7 +60,7 @@ window.keyReleased =k=> {
 }
 
 
-const { self } = require('./self')
+import { self } from './self.js'
 export const reset =()=> {
     for (const [k,v] of Object.entries(_ents)) {
         delete _ents[k]
@@ -68,6 +68,13 @@ export const reset =()=> {
     _.self = self()
 }
 
+import { wisp } from './wisp.js'
+import { link } from './link.js'
+//const { stream, stop } = require('./stream')
+//const { paint } = require('./paint')
+//const { glif } = require('./glif')
+//const { matrix } = require('./matrix')
+//const { sun } = require('./sun')
 window.setup =()=> {
 
     FPS = 60
@@ -90,33 +97,32 @@ window.setup =()=> {
     _.syc2 = $(()=> sin(2*TAU*_.t() / 10000))
     _.bg = $(()=>lerpColor(color('teal'), color('darkgrey'), _.syc2()))
 
-    const { wisp } = require('./wisp')
-    const { link } = require('./link')
+
     globalThis.wisp = wisp
     globalThis.link = link
 
-    const { stream, stop } = require('./stream')
+/*
     globalThis.stream = stream
     globalThis.stop = stop
-    const { paint } = require('./paint')
+
     globalThis.paint = paint
 
-    const { glif } = require('./glif')
+
     globalThis.glif = glif
 
-    const { matrix } = require('./matrix')
+
     globalThis.matrix = matrix
 
    // const { beat } = require('./beat')
    // globalThis.beat = beat
 
-    const { sun } = require('./sun')
+
 
     globalThis.sun = sun
 
     globalThis.reset = reset
     reset()
-
+*/
 
 //    _.w = _.wisp()
 }
