@@ -28,6 +28,11 @@ export function form(o={}) {
     return _form
 }
 
+export function tick(o) {
+    if (o._tick) {
+        o._tick({$:_p5, _:o})
+    }
+}
 export function draw(o) {
     if (o._draw) {
         _p5.push()

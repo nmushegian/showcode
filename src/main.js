@@ -2,7 +2,7 @@ console.log('load main.js')
 
 import '@fontsource/unifont'
 
-import { init, _forms, form, $, draw as drawform } from './form.js'
+import { init, _forms, form, $, tick, draw as drawform } from './form.js'
 
 import { wand } from './wand.js'
 
@@ -37,15 +37,11 @@ window.mouseWheel =e=> {
 }
 
 window.keyPressed =(k)=> {
-    console.log(k)
-
     if (k.key == "ArrowUp") {
         _.bpm(_.bpm()+1)
-        console.log(_.bpm())
     }
     if (k.key == "ArrowDown") {
         _.bpm(_.bpm()-1)
-        console.log(_.bpm())
     }
     if (k.key == "Enter") {
         let c = _.self.line()
@@ -54,6 +50,7 @@ window.keyPressed =(k)=> {
             console.log(res)
             _.self.line("")
         } catch (e) {
+            console.log(e)
             _.self.hue('red')
             setTimeout(()=>{_.self.hue('black')}, 100)
         }
@@ -67,7 +64,6 @@ window.keyPressed =(k)=> {
 }
 
 window.keyReleased =k=> {
-    console.log('released')
 }
 
 
@@ -125,12 +121,14 @@ window.draw =()=> {
     _.t(_.t() + deltaTime)
     _.mx(mouseX)
     _.my(mouseY)
-    let c = 32
     text(nfp(_.bpm()),32,32)
     text(1 + _.beatframe() % 4,32,64)
     const baton = String.fromCharCode(100 + (_.beatframe()*1001)%1600)
     text(baton, 32, 96)
 
+    for (let [eid,ent] of Object.entries(_forms)) {
+        tick(ent)
+    }
     for (let [eid,ent] of Object.entries(_forms)) {
         drawform(ent)
     }
