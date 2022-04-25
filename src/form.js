@@ -28,13 +28,13 @@ export function form(o={}) {
 }
 
 export function flow(o) {
-    if (!o.flows()) throw new Error(`object has no flows: ${o}`)
-    const flows = o.flows()
+    if (o.flows) {
+        for (const [k, f] of Object.entries(flows)) {
+            f({_:o})
+        }
+    }
     for (const [k, v] of Object.entries(o)) {
         if (v.flows) flow(v)
-    }
-    for (const [k, f] of Object.entries(flows)) {
-        f({_:o})
     }
 }
 
