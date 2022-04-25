@@ -2,8 +2,7 @@ console.log('load main.js')
 
 import '@fontsource/unifont'
 
-import { _ents } from './ents.js'
-import { form, $, draw as drawform } from './form.js'
+import { init, _forms, form, $, draw as drawform } from './form.js'
 
 import { wand } from './wand.js'
 
@@ -30,12 +29,13 @@ _.cmd =s=> {
 }
 
 _.self = wand({x: _.mx, y: _.my})
-
+console.log(_.self)
 export let c = 32
 export let ch =s=> { let _c = c; text(s, _c, 64); _c+=32; c+=32 }
 
 window.keyPressed =(k)=> {
     console.log(k)
+    _.self.line(_.self.line() + k.key)
     if (k.key == "ArrowUp") {
         _.bpm(_.bpm()+1)
         console.log(_.bpm())
@@ -65,10 +65,10 @@ window.keyReleased =k=> {
 
 import { self } from './self.js'
 export const reset =()=> {
-    for (const [k,v] of Object.entries(_ents)) {
-        delete _ents[k]
+    for (const [k,v] of Object.entries(_forms)) {
+        delete _forms[k]
     }
-    _.self = self()
+//    _.self = self()
 }
 
 import { wisp } from './wisp.js'
@@ -79,7 +79,7 @@ import { link } from './link.js'
 //const { matrix } = require('./matrix')
 //const { sun } = require('./sun')
 window.setup =()=> {
-
+    init(globalThis)
     _.fps(60)
     createCanvas(1280, 960)
     angleMode(RADIANS)
@@ -123,10 +123,9 @@ window.draw =()=> {
     const baton = String.fromCharCode(100 + (_.beatframe()*1001)%1600)
     text(baton, 32, 96)
 
-    for (let [eid,ent] of Object.entries(_ents)) {
-        ent._tick()
-    }
-    for (let [eid,ent] of Object.entries(_ents)) {
+    for (let [eid,ent] of Object.entries(_forms)) {
+        console.log(ent)
+        console.log(ent.x())
         drawform(ent)
     }
 }

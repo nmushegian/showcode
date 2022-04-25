@@ -19,15 +19,12 @@ it('p5 setup', ()=>{ new p5(p=>{
         t.ok(w)
 
         w = wand({
-            x: 100,
-            y: 100,
+            x: ()=> p.mouseX,
+            y: ()=> p.mouseY,
         })
         w.hue('red')
         w.line('hi')
-        console.log(w)
 
-        console.log('hue is', w.hue())
-        console.log('line is', w.line())
         draw(w)
         p.redraw()
 

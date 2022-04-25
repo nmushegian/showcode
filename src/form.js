@@ -16,14 +16,12 @@ export function form(o={}) {
         _id: _formc++,
     }
     for (const [k,v] of Object.entries(o)) {
-        console.log(k,v)
         if (k[0] == '_') {
-            console.log('direct assign prop', k)
             _form[k] = v
         } else if (typeof(v) == 'function' && v.depended_by) { // hack, sentinel value
             _form[k] = v
         } else {
-            _form[k] = $(v)
+            _form[k] = $(()=>v)
         }
     }
     _forms[_formc] = _form
@@ -31,9 +29,7 @@ export function form(o={}) {
 }
 
 export function draw(o) {
-    console.log('drawing')
     if (o._draw) {
-        console.log('has a _draw')
         _p5.push()
         o._draw({$:_p5, _:o})
         _p5.pop()
