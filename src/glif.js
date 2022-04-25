@@ -45,10 +45,12 @@ export const glif =(l,r,d)=> {
         c2: $(color(random(255), random(255), random(255))),
         hue: $('white'),
     }).tick(()=>{
-        e.x( e.x() + e.dx() )
-        e.y( e.y() + e.dy() )
-        e.dy( e.dy() + (random() - 1/2)/20)
-        e.dx( e.dx() + (random() - 1/2)/20)
+        let x2 = (e.x() + e.dx()) % width
+        let y2 = (e.y() + e.dy()) % height
+        e.x( x2 > 0 ? x2 : width )
+        e.y( y2 > 0 ? y2 : height )
+        e.dy( (e.dy() + (random() - 1/2)/20) )
+        e.dx( (e.dx() + (random() - 1/2)/20) )
         e.hue(lerpColor(e.c1(), e.c2(), _.beat()))
         let ff = floor(_.beatframe())
         let av = e.l() + (ff % e.r())

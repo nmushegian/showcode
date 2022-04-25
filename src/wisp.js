@@ -9,8 +9,10 @@ export const wisp =args=> {
         hue: $(color(random(255), random(255), random(255))),
         jitter: $(1/50)
     }).tick(() => {
-        w.x(w.x() + w.dx())
-        w.y(w.y() + w.dy())
+        let x2 = (w.x() + w.dx()) % width
+        w.x( x2 > 0 ? x2 : width )
+        let y2 = (w.y() + w.dy()) % height
+        w.y( y2 > 0 ? y2 : height )
         w.dx(w.dx() + (random() - 1/2)*w.jitter())
         w.dy(w.dy() + (random() - 1/2)*w.jitter())
     }).draw(() => {

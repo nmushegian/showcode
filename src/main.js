@@ -9,7 +9,7 @@ globalThis._ = {}
 const O = $
 
 export let FPS
-_.bg = $()
+
 _.frame = $()
 _.t = $()
 _.mx = $()
@@ -68,6 +68,7 @@ export const reset =()=> {
 }
 
 window.setup =()=> {
+
     FPS = 60
     createCanvas(1280, 960)
     angleMode(RADIANS)
@@ -77,7 +78,6 @@ window.setup =()=> {
     cursor(CROSS)
 
     _.t(0)
-    _.bg('pink')
     _.frame(frameCount)
 
     let bps = $(()=>(_.bpm() / 60))
@@ -87,7 +87,7 @@ window.setup =()=> {
     _.syc = $(() => sin(TAU*_.t() / 1000))
     _.cyc = $(() => cos(TAU*_.t() / 1000))
     _.syc2 = $(()=> sin(2*TAU*_.t() / 10000))
-
+    _.bg = $(()=>lerpColor(color('teal'), color('darkgrey'), _.syc2()))
 
     const { wisp } = require('./wisp')
     const { link } = require('./link')
@@ -106,11 +106,12 @@ window.setup =()=> {
     const { matrix } = require('./matrix')
     globalThis.matrix = matrix
 
-    const { beat } = require('./beat')
-    globalThis.beat = beat
-    const b = beat(120)
-    b.x(200)
-    b.y(200)
+   // const { beat } = require('./beat')
+   // globalThis.beat = beat
+
+    const { sun } = require('./sun')
+
+    globalThis.sun = sun
 
     globalThis.reset = reset
     reset()
@@ -126,14 +127,17 @@ window.draw =()=> {
       console.log('firstdraw')
         _firstdraw = false
     }
-    background(lerpColor(color('pink'), color('lightgrey'), _.syc2()))
+
+    background(_.bg())
     _.frame(frameCount)
     _.t(_.t() + deltaTime)
     _.mx(mouseX)
     _.my(mouseY)
     c = 32
     text(nfp(_.bpm()),32,32)
-    text(1 + _.beatframe() % 3,32,64)
+    text(1 + _.beatframe() % 4,32,64)
+    const baton = String.fromCharCode(100 + (_.beatframe()*1001)%1600)
+    text(baton, 32, 96)
 
     for (let [eid,ent] of Object.entries(_ents)) {
         ent._tick()
