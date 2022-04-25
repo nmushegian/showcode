@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "dependencies": {
     "@fontsource/unifont": "^4.5.5",
     "lib-unifonts": "^1.0.4",
