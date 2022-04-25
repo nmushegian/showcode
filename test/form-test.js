@@ -1,11 +1,11 @@
-import {test as t} from 'tapzero'
+import {test as it} from 'tapzero'
 //const t = require('tapzero').test
 //const { $, form, flow } = require('../src/form')
 import { $, form, flow} from '../src/form.js'
 
 
 
-t('form', t=>{
+it('form', t=>{
     let pt = form()
     t.ok(pt)
 
@@ -27,4 +27,19 @@ t('form', t=>{
 
     pt.y(200)
     t.equal(below.y(), 300)
+})
+
+it('flow', t=> {
+    let pt = form({
+        x: 100,
+        y: 100
+    })
+    let movement = flow({_:pt}, ({_})=> {
+        _.x(_.x() + 1)
+    })
+    console.log(movement)
+    movement.flow()()
+    console.log(pt.x())
+    movement.flow()()
+    console.log(pt.x())
 })
