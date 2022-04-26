@@ -2,7 +2,7 @@ console.log('load main.js')
 
 import '@fontsource/unifont'
 
-import { init, _forms, form, $, tick, draw as drawform } from './form.js'
+import { init, _forms, form, V, tick, draw as drawform } from './form.js'
 
 import { wand } from './wand.js'
 import { wisp } from './wisp.js'
@@ -12,17 +12,17 @@ import {default as p5} from 'p5'
 new p5(p=>{
 
     globalThis._ = {}
-    _.frame = $()
-    _.t = $()
-    _.mx = $()
-    _.my = $()
-    _.bpm = $(120)
-    _.beat = $(()=>{})
-    _.bar = $(()=>{})
-    _.syc = $(()=>{})
-    _.cyc = $(()=>{})
-    _.sh = $('')
-    _.fps = $(60)
+    _.frame = V()
+    _.t = V()
+    _.mx = V()
+    _.my = V()
+    _.bpm = V(120)
+    _.beat = V(()=>{})
+    _.bar = V(()=>{})
+    _.syc = V(()=>{})
+    _.cyc = V(()=>{})
+    _.sh = V('')
+    _.fps = V(60)
     _.p = p
 
     _.cmd =s=> {
@@ -82,14 +82,14 @@ new p5(p=>{
         _.t(0)
         _.frame(p.frameCount)
 
-        let bps = $(()=>(_.bpm() / 60))
-        _.beat = $(() => p.sin(_.t() * p.TAU * bps() / 1000))
-        _.beatframe = $(() => Math.floor(bps() * _.t() / 1000))
+        let bps = V(()=>(_.bpm() / 60))
+        _.beat = V(() => p.sin(_.t() * p.TAU * bps() / 1000))
+        _.beatframe = V(() => Math.floor(bps() * _.t() / 1000))
 
-        _.syc = $(() => p.sin(p.TAU*_.t() / 1000))
-        _.cyc = $(() => p.cos(p.TAU*_.t() / 1000))
-        _.syc2 = $(()=> p.sin(2*p.TAU*_.t() / 10000))
-        _.bg = $(()=>p.lerpColor(p.color('teal'), p.color('darkgrey'), _.syc2()))
+        _.syc = V(() => p.sin(p.TAU*_.t() / 1000))
+        _.cyc = V(() => p.cos(p.TAU*_.t() / 1000))
+        _.syc2 = V(()=> p.sin(2*p.TAU*_.t() / 10000))
+        _.bg = V(()=>p.lerpColor(p.color('teal'), p.color('darkgrey'), _.syc2()))
 
         globalThis.wisp = wisp
     }

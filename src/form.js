@@ -1,5 +1,5 @@
-import { default as $ } from 'purestate'
-export { $ }
+import { default as V } from 'purestate'
+export { V }
 
 export let _forms = {}
 export let _formc = 0
@@ -21,7 +21,7 @@ export function form(o={}) {
         } else if (typeof(v) == 'function' && v.depended_by) { // hack, sentinel value
             _form[k] = v
         } else {
-            _form[k] = $(v)
+            _form[k] = V(v)
         }
     }
     _forms[_formc] = _form
