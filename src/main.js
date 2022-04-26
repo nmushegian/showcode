@@ -31,7 +31,7 @@ new p5(p=>{
         return x
     }
 
-    _.self = wand({x: _.mx, y: _.my})
+    globalThis.self = _.self = wand({x: _.mx, y: _.my})
 
     p.mouseWheel =e=> {
         const neu = _.self.r() - e.delta / 10
@@ -93,7 +93,6 @@ new p5(p=>{
         globalThis.wisp = wisp
 
         const cl = p.color('white')
-        cl.setAlpha(100)
         for (let x = 0; x < p.width; x+=32) {
             for (let y = 0; y < p.height; y+=32) {
                 let l = form($=>({
@@ -104,22 +103,18 @@ new p5(p=>{
                     x3: x,
                     y3: y+32,
                     _draw: ({$,_}) => {
-                        const ax = $.lerp(_.x1(), $.mx(), 0.4)
-                        const ay = $.lerp(_.y1(), $.my(), 0.4)
+                        let d = $.dist(_.x1(), _.y1(), $.mx()+self.r()+64, $.my())
+                        cl.setAlpha(255/(d/50))
                         $.stroke(cl)
                         $.noFill()
                         $.curveTightness(1.1)
-                        $.curve(
-                            ax, ay,
+                        $.line(
                             _.x1(), _.y1(),
                             _.x2(), _.y2(),
-                            ax, ay
                         )
-                        $.curve(
-                            ax, ay,
+                        $.line(
                             _.x1(), _.y1(),
                             _.x3(), _.y3(),
-                            ax, ay
                         )
                     }
                 }))
