@@ -92,7 +92,7 @@ new p5(p=>{
 
         globalThis.wisp = wisp
 
-        const cl = p.color('white')
+        const cl = p.color('black')
         for (let x = 0; x < p.width; x+=32) {
             for (let y = 0; y < p.height; y+=32) {
                 let l = form($=>({
@@ -104,7 +104,7 @@ new p5(p=>{
                     y3: y+32,
                     _draw: ({$,_}) => {
                         let d = $.dist(_.x1(), _.y1(), $.mx()+self.r()+64, $.my())
-                        cl.setAlpha(255/(d/50))
+                        cl.setAlpha(255/(d/30))
                         $.stroke(cl)
                         $.noFill()
                         $.curveTightness(1.1)

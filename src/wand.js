@@ -10,14 +10,14 @@ export function wand(o={}) {
         _draw: ({$,_}) => {
             $.stroke(_.hue())
             $.fill(_.hue())
-            let _x = _.x() + _.r()/2 + 16
-            let _y = _.y() + 16
-            _x = _x - (_x % 32) + 16
+            let _x = _.x() + _.r()/2
+            let _y = _.y() + 32
+            _x = _x - (_x % 32) + 32
             _y = _y - (_y % 32)
-            $.text(">" + _.line(), _x, _y)
+            $.text("\u2A00" + _.line(), _x, _y)
             $.noFill()
             $.circle(_.x(), _.y(), _.r())
-            $.line(_x, _y, $.mx(), $.my())
+            $.line(_x+16, _y-11, $.mx(), $.my())
         }
     }))
 }
