@@ -14,7 +14,9 @@ export function wand(o={}) {
             let _y = _.y() + 32
             _x = _x - (_x % 32) + 32
             _y = _y - (_y % 32)
+
             $.text("\u2A00" + _.line(), _x, _y)
+            $.strokeWeight(3)
             $.noFill()
             $.circle(_.x(), _.y(), _.r())
             $.line(_x+16, _y-11, $.mx(), $.my())

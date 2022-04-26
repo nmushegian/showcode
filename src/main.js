@@ -39,12 +39,7 @@ new p5(p=>{
     }
 
     p.keyPressed =(k)=> {
-        if (k.key == "ArrowUp") {
-            _.bpm(_.bpm()+1)
-        }
-        if (k.key == "ArrowDown") {
-            _.bpm(_.bpm()-1)
-        }
+
         if (k.key == "Enter") {
             let c = _.self.line()
             try {
@@ -60,7 +55,30 @@ new p5(p=>{
         } else if (k.key == "Backspace") {
             _.self.line(_.self.line().slice(0, _.self.line().length-1))
         } else {
+
+            if (k.key == "ArrowUp") {
+                _.bpm(_.bpm()+1)
+            }
+            if (k.key == "ArrowDown") {
+                _.bpm(_.bpm()-1)
+            }
             if (k.key.length == 1) {
+                form($=>({
+                    x: $.mx(),
+                    y: $.my(),
+                    s: ()=>10,
+                    hue: ()=>$.color($.random(200), $.random(200), $.random(200)),
+                    _tick: ({_})=>{
+                        _.y(_.y()-_.s())
+                        _.x(_.x()+$.random(_.s())-_.s()/2)
+                    },
+                    _draw: ({$,_})=>{
+                        $.fill('white')
+                        $.stroke(_.hue())
+                        $.strokeWeight(2)
+                        $.text(k.key, _.x(), _.y())
+                    }
+                }))
                 _.self.line(_.self.line() + k.key)
             }
         }
@@ -88,7 +106,7 @@ new p5(p=>{
         _.syc = V(() => p.sin(p.TAU*_.t() / 1000))
         _.cyc = V(() => p.cos(p.TAU*_.t() / 1000))
         _.syc2 = V(()=> p.sin(2*p.TAU*_.t() / 10000))
-        _.bg = V('pink')//()=>p.lerpColor(p.color('teal'), p.color('darkgrey'), _.syc2()))
+        _.bg = V('darkgrey')//()=>p.lerpColor(p.color('teal'), p.color('darkgrey'), _.syc2()))
 
         globalThis.wisp = wisp
 
