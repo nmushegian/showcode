@@ -1,7 +1,7 @@
 import { form } from './form.js'
 console.log('load wand.js')
 export function wand(o={}) {
-    return form({
+    return form($=>({
         r: 16,
         x: o.x ?? 0,
         y: o.y ?? 0,
@@ -14,5 +14,5 @@ export function wand(o={}) {
             $.noFill()
             $.circle(_.x(), _.y(), _.r())
         }
-    })
+    }))
 }

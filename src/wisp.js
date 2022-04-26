@@ -2,9 +2,9 @@ import { form } from './form.js'
 
 export const wisp =(o={})=> {
     let { width, height } = _.p
-    let w = form({
-        x: _.mx(),
-        y: _.my(),
+    let w = form($=>({
+        x: $.mx(),
+        y: $.my(),
         dx: 0,
         dy: 0,
         hue: _.p.color(_.p.random(255), _.p.random(255), _.p.random(255)),
@@ -26,6 +26,6 @@ export const wisp =(o={})=> {
                 $.line(0, 0, d, 0);
             }
         }
-    })
+    }))
     return w
 }

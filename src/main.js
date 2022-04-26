@@ -10,12 +10,12 @@ import { wisp } from './wisp.js'
 import {default as p5} from 'p5'
 
 new p5(p=>{
-
+    init(p)
     globalThis._ = {}
     _.frame = V()
-    _.t = V()
-    _.mx = V()
-    _.my = V()
+    _.t = V(0)
+    p.mx = _.mx = V()
+    p.my = _.my = V()
     _.bpm = V(120)
     _.beat = V(()=>{})
     _.bar = V(()=>{})
@@ -71,7 +71,6 @@ new p5(p=>{
 
     p.setup =()=> {
         p.noCursor()
-        init(p)
         _.fps(60)
         p.createCanvas(1280, 960)
         p.angleMode(p.RADIANS)

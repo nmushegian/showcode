@@ -10,7 +10,9 @@ export function init(p5) {
     _p5 = p5
 }
 
-export function form(o={}) {
+export function form(f) {
+    if (!_p5) throw new Error(`panic: need to call init`)
+    const o = f(_p5)
     if (o._id) throw new Error(`panic: obj already has _id: ${o}`)
     let _form = {
         _id: _formc++,
