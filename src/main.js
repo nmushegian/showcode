@@ -11,31 +11,83 @@ import {default as p5} from 'p5'
 
 new p5(p=>{
     init(p)
-    globalThis._ = {}
-    _.frame = V()
-    _.t = V(0)
-    p.mx = _.mx = V()
-    p.my = _.my = V()
-    _.bpm = V(120)
-    _.beat = V(()=>{})
-    _.bar = V(()=>{})
-    _.syc = V(()=>{})
-    _.cyc = V(()=>{})
-    _.sh = V('')
-    _.fps = V(60)
-    _.p = p
+    globalThis.$ = {}
+    $.frame = V()
+    $.t = V(0)
+    p.mx = $.mx = V()
+    p.my = $.my = V()
+    $.bpm = V(120)
+    $.beat = V(()=>{})
+    $.bar = V(()=>{})
+    $.syc = V(()=>{})
+    $.cyc = V(()=>{})
+    $.sh = V('')
+    $.fps = V(60)
+    $.p = p
 
-    _.cmd =s=> {
-        const test = 'hello'
-        let x = eval(s)
-        return x
+    p.setup =()=> {
+        p.noCursor()
+        $.fps(60)
+        p.createCanvas(1280, 960)
+        p.angleMode(p.RADIANS)
+        p.frameRate($.fps())
+        p.textFont('Unifont')
+        p.textSize(32)
+
+        $.t(0)
+        $.frame(p.frameCount)
+
+        let bps = V(()=>($.bpm() / 60))
+        $.beat = V(() => p.sin($.t() * p.TAU * bps() / 1000))
+        $.beatframe = V(() => Math.floor(bps() * $.t() / 1000))
+
+        $.syc = V(() => p.sin(p.TAU*$.t() / 1000))
+        $.cyc = V(() => p.cos(p.TAU*$.t() / 1000))
+        $.syc2 = V(()=> p.sin(2*p.TAU*$.t() / 10000))
+        $.bg = V('darkgrey')//()=>p.lerpColor(p.color('teal'), p.color('darkgrey'), _.syc2()))
+
+        globalThis.wisp = wisp
+
+        const cl = p.color('black')
+        for (let x = 0; x < p.width; x+=32) {
+            for (let y = 0; y < p.height; y+=32) {
+                let l = form($=>({
+                    x1: x,
+                    y1: y,
+                    x2: x+32,
+                    y2: y,
+                    x3: x,
+                    y3: y+32,
+                    _draw: ({$,_}) => {
+                        let d = $.dist(_.x1(), _.y1(), $.mx()+self.r()+64, $.my())
+                        cl.setAlpha(255/(d/30))
+                        $.stroke(cl)
+                        $.noFill()
+                        $.curveTightness(1.1)
+                        $.line(
+                            _.x1(), _.y1(),
+                            _.x2(), _.y2(),
+                        )
+                        $.line(
+                            _.x1(), _.y1(),
+                            _.x3(), _.y3(),
+                        )
+                    }
+                }))
+            }
+        }
+
+        globalThis.self = $.self = wand({x: $.mx, y: $.my})
+        $.cmd =s=> {
+            let x = eval(s)
+            return x
+        }
+
     }
 
-    globalThis.self = _.self = wand({x: _.mx, y: _.my})
-
     p.mouseWheel =e=> {
-        const neu = _.self.r() - e.delta / 10
-        _.self.r(neu > 16 ? neu : 16)
+        const neu = $.self.r() - e.delta / 10
+        $.self.r(neu > 16 ? neu : 16)
     }
 
     p.keyPressed =(k)=> {
@@ -87,59 +139,6 @@ new p5(p=>{
     p.keyReleased =k=> {
     }
 
-    p.setup =()=> {
-        p.noCursor()
-        _.fps(60)
-        p.createCanvas(1280, 960)
-        p.angleMode(p.RADIANS)
-        p.frameRate(_.fps())
-        p.textFont('Unifont')
-        p.textSize(32)
-
-        _.t(0)
-        _.frame(p.frameCount)
-
-        let bps = V(()=>(_.bpm() / 60))
-        _.beat = V(() => p.sin(_.t() * p.TAU * bps() / 1000))
-        _.beatframe = V(() => Math.floor(bps() * _.t() / 1000))
-
-        _.syc = V(() => p.sin(p.TAU*_.t() / 1000))
-        _.cyc = V(() => p.cos(p.TAU*_.t() / 1000))
-        _.syc2 = V(()=> p.sin(2*p.TAU*_.t() / 10000))
-        _.bg = V('darkgrey')//()=>p.lerpColor(p.color('teal'), p.color('darkgrey'), _.syc2()))
-
-        globalThis.wisp = wisp
-
-        const cl = p.color('black')
-        for (let x = 0; x < p.width; x+=32) {
-            for (let y = 0; y < p.height; y+=32) {
-                let l = form($=>({
-                    x1: x,
-                    y1: y,
-                    x2: x+32,
-                    y2: y,
-                    x3: x,
-                    y3: y+32,
-                    _draw: ({$,_}) => {
-                        let d = $.dist(_.x1(), _.y1(), $.mx()+self.r()+64, $.my())
-                        cl.setAlpha(255/(d/30))
-                        $.stroke(cl)
-                        $.noFill()
-                        $.curveTightness(1.1)
-                        $.line(
-                            _.x1(), _.y1(),
-                            _.x2(), _.y2(),
-                        )
-                        $.line(
-                            _.x1(), _.y1(),
-                            _.x3(), _.y3(),
-                        )
-                    }
-                }))
-            }
-        }
-
-    }
 
 
     let _firstdraw = true
@@ -149,15 +148,15 @@ new p5(p=>{
             _firstdraw = false
         }
 
-        p.background(_.bg())
+        p.background($.bg())
         p.text("\u0100",0,32)
-        _.frame(p.frameCount)
-        _.t(_.t() + p.deltaTime)
-        _.mx(p.mouseX)
-        _.my(p.mouseY)
-        p.text(p.nfp(_.bpm()),32,32)
-        p.text(1 + _.beatframe() % 4,32,64)
-        const baton = String.fromCharCode(100 + (_.beatframe()*1001)%1600)
+        $.frame(p.frameCount)
+        $.t($.t() + p.deltaTime)
+        $.mx(p.mouseX)
+        $.my(p.mouseY)
+        p.text(p.nfp($.bpm()),32,32)
+        p.text(1 + $.beatframe() % 4,32,64)
+        const baton = String.fromCharCode(100 + ($.beatframe()*1001)%1600)
         p.text(baton, 32, 96)
 
 
