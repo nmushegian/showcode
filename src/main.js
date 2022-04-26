@@ -93,26 +93,26 @@ new p5(p=>{
     p.keyPressed =(k)=> {
 
         if (k.key == "Enter") {
-            let c = _.self.line()
+            let c = $.self.line()
             try {
                 console.log(c)
-                let res = _.cmd(c)
+                let res = $.cmd(c)
                 console.log(res)
-                _.self.line("")
+                $.self.line("")
             } catch (e) {
                 console.log(e)
-                _.self.hue('red')
-                setTimeout(()=>{_.self.hue('black')}, 100)
+                $.self.hue('red')
+                setTimeout(()=>{$.self.hue('black')}, 100)
             }
         } else if (k.key == "Backspace") {
-            _.self.line(_.self.line().slice(0, _.self.line().length-1))
+            $.self.line($.self.line().slice(0, $.self.line().length-1))
         } else {
 
             if (k.key == "ArrowUp") {
-                _.bpm(_.bpm()+1)
+                $.bpm($.bpm()+1)
             }
             if (k.key == "ArrowDown") {
-                _.bpm(_.bpm()-1)
+                $.bpm($.bpm()-1)
             }
             if (k.key.length == 1) {
                 form($=>({
@@ -131,7 +131,7 @@ new p5(p=>{
                         $.text(k.key, _.x(), _.y())
                     }
                 }))
-                _.self.line(_.self.line() + k.key)
+                $.self.line($.self.line() + k.key)
             }
         }
     }

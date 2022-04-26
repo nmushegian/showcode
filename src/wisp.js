@@ -1,13 +1,14 @@
 import { form } from './form.js'
 
 export const wisp =(o={})=> {
-    let { width, height } = _.p
+    let { width, height } = $.p
+    console.log($.p)
     let w = form($=>({
         x: $.mx(),
         y: $.my(),
         dx: 0,
         dy: 0,
-        hue: _.p.color(_.p.random(255), _.p.random(255), _.p.random(255)),
+        hue: $.color($.random(255), $.random(255), $.random(255)),
         jitter: 1/50,
         _tick: ({$,_})=>{
             let x2 = (_.x() + _.dx()) % width
