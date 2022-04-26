@@ -19,8 +19,8 @@ it('p5 setup', ()=>{ new p5(p=>{
         t.ok(w)
 
         w = wand({
-            x :_ => p.mouseX,
-            y :_ => p.mouseY,
+            x :_ => 100,
+            y :_ => 100,
         })
         w.hue('red')
         w.line('hi')
