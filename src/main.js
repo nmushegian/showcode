@@ -88,10 +88,46 @@ new p5(p=>{
         _.syc = V(() => p.sin(p.TAU*_.t() / 1000))
         _.cyc = V(() => p.cos(p.TAU*_.t() / 1000))
         _.syc2 = V(()=> p.sin(2*p.TAU*_.t() / 10000))
-        _.bg = V(()=>p.lerpColor(p.color('teal'), p.color('darkgrey'), _.syc2()))
+        _.bg = V('pink')//()=>p.lerpColor(p.color('teal'), p.color('darkgrey'), _.syc2()))
 
         globalThis.wisp = wisp
+
+        const cl = p.color('white')
+        cl.setAlpha(100)
+        for (let x = 0; x < p.width; x+=32) {
+            for (let y = 0; y < p.height; y+=32) {
+                let l = form($=>({
+                    x1: x,
+                    y1: y,
+                    x2: x+32,
+                    y2: y,
+                    x3: x,
+                    y3: y+32,
+                    _draw: ({$,_}) => {
+                        const ax = $.lerp(_.x1(), $.mx(), 0.4)
+                        const ay = $.lerp(_.y1(), $.my(), 0.4)
+                        $.stroke(cl)
+                        $.noFill()
+                        $.curveTightness(1.1)
+                        $.curve(
+                            ax, ay,
+                            _.x1(), _.y1(),
+                            _.x2(), _.y2(),
+                            ax, ay
+                        )
+                        $.curve(
+                            ax, ay,
+                            _.x1(), _.y1(),
+                            _.x3(), _.y3(),
+                            ax, ay
+                        )
+                    }
+                }))
+            }
+        }
+
     }
+
 
     let _firstdraw = true
     p.draw =()=> {
@@ -101,6 +137,7 @@ new p5(p=>{
         }
 
         p.background(_.bg())
+        p.text("\u0100",0,32)
         _.frame(p.frameCount)
         _.t(_.t() + p.deltaTime)
         _.mx(p.mouseX)
@@ -109,6 +146,7 @@ new p5(p=>{
         p.text(1 + _.beatframe() % 4,32,64)
         const baton = String.fromCharCode(100 + (_.beatframe()*1001)%1600)
         p.text(baton, 32, 96)
+
 
         for (let [eid,ent] of Object.entries(_forms)) {
             tick(ent)
